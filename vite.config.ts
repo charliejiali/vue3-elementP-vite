@@ -14,6 +14,10 @@ export default defineConfig({
     createSvgIconsPlugin({
       iconDirs: [resolve(process.cwd(), 'src/icons/svg')],
       symbolId: 'icon-[dir]-[name]'
+    }),
+    viteMockServe({
+      mockPath: 'mock',
+      ignore: /^\_/
     })
   ],
   resolve: {
