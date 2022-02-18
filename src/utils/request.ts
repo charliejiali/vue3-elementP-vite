@@ -1,26 +1,29 @@
 import axios from 'axios'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import store from '@/store'
+import { AxiosConfigTy, AxiosReqTy, ObjTy } from '~/common'
+
 // import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: import.meta.env.VITE_BASE_API, // url = base url + request url
+  baseURL: import.meta.env.MODE === 'development' ? import.meta.env.VITE_BASE_API : '',
+  // baseURL: import.meta.env.VITE_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
 
 // request interceptor
 service.interceptors.request.use(
-  (config: any) => {
+  (config: AxiosReqTy) => {
     // do something before request is sent
 
-    if (store.getters.token) {
-      //   // let each request carry token
-      //   // ['X-Token'] is a custom headers key
-      //   // please modify it according to the actual situation
-      // config.headers['user'] = getToken()
-    }
+    // if (store.getters.token) {
+    //   // let each request carry token
+    //   // ['X-Token'] is a custom headers key
+    //   // please modify it according to the actual situation
+    // config.headers['user'] = getToken()
+    // }
     return config
   },
   error => {
@@ -42,7 +45,7 @@ service.interceptors.response.use(
      * Here is just an example
      * You can also judge the status by HTTP Status Code
      */
-  response => {
+  (response: any) => {
     const res: {code: number, message: string} = response.data
 
     // if the custom code is not 20000, it is judged as an error.
@@ -71,7 +74,7 @@ service.interceptors.response.use(
       return res
     }
   },
-  error => {
+  (error: any) => {
     console.log('err' + error) // for debug
     ElMessage({
       message: error.message,

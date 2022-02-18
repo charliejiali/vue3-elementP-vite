@@ -1,4 +1,4 @@
-/// <reference types="vite/client" />
+// / <reference types="vite/client" />
 
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
@@ -13,5 +13,9 @@ declare module '*.scss' {
 }
 
 interface ImportMetaEnv {
-  VITE_BASE_API: string
+  readonly VITE_BASE_API: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
 }
