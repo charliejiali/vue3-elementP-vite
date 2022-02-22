@@ -4,6 +4,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { viteMockServe } from 'vite-plugin-mock'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
 
 import { resolve } from 'path'
 import defaultSettings from './src/settings'
@@ -72,6 +73,31 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
             title: defaultSettings.title
           }
         }
+      }),
+      createStyleImportPlugin({
+        resolves: [ElementPlusResolve()]
+        // libs: [
+        //   // 如果没有你需要的resolve，可以在lib内直接写
+        //   {
+        //     // 需要导入的库名
+        //     libraryName: 'element-plus',
+        //     // 如果样式文件不是.css后缀。需要开启此选项
+        //     // default:false
+        //     esModule: true,
+        //     /**
+        //      * 可能有些组件库不是很标准化。
+        //      * 您可以打开此选项以忽略以确定文件是否存在。 导入不存在的CSS文件时防止错误。
+        //      * 开启后性能可能会略有下降，但影响不大
+        //      * default: false
+        //      */
+        //     ensureStyleFile: true,
+        //     // 自定义样式转换
+        //     resolveStyle: (name: string) => {
+        //       const cssName: string = name.slice(3)
+        //       return `element-plus/packages/theme-chalk/src/${cssName}.scss`
+        //     }
+        //   }
+        // ]
       })
     ],
     resolve: {
