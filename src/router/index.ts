@@ -17,6 +17,16 @@ export const constantRoutes: RouterTy = [
     ]
   },
   {
+    path: '/404',
+    component: () => import('@/views/error-page/404.vue'),
+    hidden: true
+  },
+  {
+    path: '/401',
+    component: () => import('@/views/error-page/401.vue'),
+    hidden: true
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/home',
@@ -51,6 +61,30 @@ export const constantRoutes: RouterTy = [
         component: () => import('@/views/profile/index.vue'),
         name: 'Profile',
         meta: { title: 'Profile', icon: 'user', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/error',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'ErrorPages',
+    meta: {
+      title: 'Error Pages',
+      icon: '404'
+    },
+    children: [
+      {
+        path: '401',
+        component: () => import('@/views/error-page/401.vue'),
+        name: 'Page401',
+        meta: { title: 'Page 401', noCache: true }
+      },
+      {
+        path: '404',
+        component: () => import('@/views/error-page/404.vue'),
+        name: 'Page404',
+        meta: { title: 'Page 404', noCache: true }
       }
     ]
   }
