@@ -14,7 +14,7 @@
 import { reactive, toRefs, computed } from 'vue'
 import { useStore } from 'vuex'
 import Navbar from './components/Navbar.vue'
-import Sidebar from './components/Sidebar'
+import Sidebar from './components/Sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
 
 const store = useStore()
