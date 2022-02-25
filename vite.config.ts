@@ -7,11 +7,12 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import ElementPlus from 'unplugin-element-plus/vite'
 
 import { resolve } from 'path'
 import defaultSettings from './src/settings'
 
-const port = 9528
+const port = 9527
 
 // https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfigExport => {
@@ -36,6 +37,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     plugins: [
       vue(),
       vueJsx(),
+      ElementPlus(),
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/icons/svg')],
         symbolId: 'icon-[dir]-[name]',
@@ -77,6 +79,16 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         }
       }),
       AutoImport({
+        include: [
+          /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+          /\.vue$/, /\.vue\?vue/, // .vue
+          /\.md$/ // .md
+        ],
+        imports: [
+          'vue',
+          'vuex',
+          'vue-router'
+        ],
         resolvers: [ElementPlusResolver()]
       }),
       Components({

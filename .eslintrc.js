@@ -32,6 +32,8 @@ module.exports = {
     'prettier'
   ],
   rules: {
+    'no-undef': 'off',
+    // 'no-unref': 'off',
     'vue/multi-word-component-names': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'vue/comment-directive': 0,
@@ -156,7 +158,7 @@ module.exports = {
     'no-this-before-super': 2,
     'no-throw-literal': 2,
     'no-trailing-spaces': 2,
-    'no-undef': 2,
+    // 'no-undef': 2,
     'no-undef-init': 2,
     'no-unexpected-multiline': 2,
     'no-unmodified-loop-condition': 2,

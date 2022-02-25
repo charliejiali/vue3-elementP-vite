@@ -35,6 +35,7 @@
     "sass": "^1.49.7",
     "typescript": "^4.5.4",
     "unplugin-auto-import": "^0.6.1",
+    "unplugin-element-plus": "^0.3.1",
     "unplugin-vue-components": "^0.17.19",
     "vite": "^2.8.0",
     "vite-plugin-html": "^3.0.6",
