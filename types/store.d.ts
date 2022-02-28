@@ -8,9 +8,11 @@ export interface StateTy {
 }
 
 export interface UserTy {
-    username: string
-    avatar: string
+    token: string
+    name: string
+    introduction: string
     roles: Array<string>
+    // avatar: string
 }
 
 export interface AppTy {
@@ -26,7 +28,7 @@ export interface AppTy {
 }
 
 export interface PermissionTy {
-    isGetUserInfo: boolean // 是否已经设置了权限
     routes: RouterTy // 将过滤后的异步路由和静态路由集合
     addRoutes: RouterTy // 过滤后的异步路由
+    removeRoutes: any[]
 }
