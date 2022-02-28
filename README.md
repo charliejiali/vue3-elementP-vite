@@ -1,11 +1,93 @@
-# Vue 3 + Typescript + Vite
+## Introduction
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+[vue3-elementP-vite](https://github.com/charliejiali/vue3-elementP-vite) is based on [vue-element-admin](https://panjiachen.github.io/vue-element-admin), and upgraded to the newest development stack of Vue 3.
 
-## Recommended IDE Setup
+## Preparation
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+- [Vue 3](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Element Plus](https://element-plus.gitee.io/zh-CN/)
+- [Echarts](https://echarts.apache.org/zh/index.html)
 
-## Type Support For `.vue` Imports in TS
+## devDependencies
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+- [@types/path-browserify](https://github.com/browserify/path-browserify)
+  > the `path` module from Node.js for browsers.
+- [ESLint](https://github.com/eslint/eslint)
+  > Find and fix problems in your JavaScript code.
+- [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import)
+  > Auto import APIs on-demand for Vite, Webpack, Rollup and esbuild.
+- [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
+  > On-demand components auto importing for Vue.
+- [vite-plugin-html](https://github.com/vbenjs/vite-plugin-html)
+  >A vite plugin for processing html.
+- [vite-plugin-mock](https://github.com/vbenjs/vite-plugin-mock)
+  > Provide local and prod mocks for vite.
+- [vite-plugin-svg-icons](https://github.com/vbenjs/vite-plugin-svg-icons)
+  > Used to generate svg sprite map.
+
+## Features
+
+```
+- Login / Logout
+
+- Permission Authentication
+  - Page permission
+
+- Multi-evnironment build
+  - Develop (dev)
+  - Production (prod)
+
+- Global Features
+  - Dynamic sidebar（supportws multi-level routing）
+  - Dynamic breadcrumb
+  - Mock data
+  - Responsive Sidebar
+
+- Error Page
+  - 401
+  - 404
+
+- ECharts 
+```
+
+## Getting started
+
+```bash
+# clone the project
+git clone https://github.com/charliejiali/vue3-elementP-vite.git
+
+# enter the project directory
+cd vue3-elementP-vite
+
+# install dependency
+npm install
+
+# for gfw problems
+npm install --registry=https://registry.npm.taobao.org
+
+# develop
+npm run dev
+```
+
+## Build
+
+```bash
+# build for production evnironment
+npm run build:prod
+```
+
+## Browsers support
+
+Modern browsers, recommend `Chrome` for development。
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](https://godban.github.io/browsers-support-badges/)</br>Safari |
+| --------- | --------- | --------- | --------- |
+| last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+
+## License
+
+[MIT](https://github.com/charliejiali/vue3-elementP-vite/blob/main/LICENSE)
+
+Copyright (c) 2022-present charliejiali
