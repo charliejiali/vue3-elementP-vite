@@ -1,9 +1,7 @@
 import axios from 'axios'
-import { ElMessageBox, ElMessage } from 'element-plus'
 import store from '@/store'
 import { AxiosConfigTy, AxiosReqTy, ObjTy } from '~/common'
-
-// import { getToken } from '@/utils/auth'
+import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
@@ -18,12 +16,14 @@ service.interceptors.request.use(
   (config: AxiosReqTy) => {
     // do something before request is sent
 
-    // if (store.getters.token) {
-    //   // let each request carry token
-    //   // ['X-Token'] is a custom headers key
-    //   // please modify it according to the actual situation
-    // config.headers['user'] = getToken()
-    // }
+    if (store.getters.token) {
+      // let each request carry token
+      // ['X-Token'] is a custom headers key
+      // please modify it according to the actual situation
+      if (config.headers) {
+        config.headers['X-Token'] = getToken() as string
+      }
+    }
     return config
   },
   error => {
