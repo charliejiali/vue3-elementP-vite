@@ -92,6 +92,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         resolvers: [ElementPlusResolver()]
       }),
       Components({
+        dirs: ['src/components/'],
         resolvers: [ElementPlusResolver()]
       })
     ],
@@ -123,6 +124,13 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           chunkFileNames: 'static/js/[name]-[hash].js',
           entryFileNames: 'static/js/[name]-[hash].js',
           assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
+        }
+      }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          charset: false
         }
       }
     }
