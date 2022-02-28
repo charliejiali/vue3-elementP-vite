@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory, Router } from 'vue-router'
-import Layout from '@/layout'
+import { createRouter, createWebHashHistory, createWebHistory, Router } from 'vue-router'
+import Layout from '@/layout/index.vue'
 import { RouterTy } from '~/router'
+import store from '@/store'
 
 import nestedRouter from './modules/nested'
 
@@ -15,6 +16,11 @@ export const constantRoutes: RouterTy = [
         component: () => import('@/views/redirect')
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index.vue'),
+    hidden: true
   },
   {
     path: '/404',
@@ -39,31 +45,7 @@ export const constantRoutes: RouterTy = [
       }
     ]
   },
-  {
-    path: '/documentation',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/documentation/index.vue'),
-        name: 'Documentation',
-        meta: { title: 'Documentation', icon: 'documentation', affix: true }
-      }
-    ]
-  },
   nestedRouter,
-  {
-    path: '/profile',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/profile/index.vue'),
-        name: 'Profile',
-        meta: { title: 'Profile', icon: 'user', noCache: true }
-      }
-    ]
-  },
   {
     path: '/error',
     component: Layout,
@@ -90,10 +72,50 @@ export const constantRoutes: RouterTy = [
   }
 ]
 
-const router: Router = createRouter({
+export const asyncRoutes: RouterTy = [
+  {
+    path: '/documentation',
+    component: Layout,
+    name: 'Documentation',
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/documentation/index.vue'),
+        name: 'DocumentationIndex',
+        meta: { title: 'Documentation', icon: 'documentation' }
+      }
+    ]
+  },
+  {
+    path: '/profile',
+    component: Layout,
+    name: 'Profile',
+    meta: { title: '', roles: ['admin'] },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/profile/index.vue'),
+        name: 'ProfileIndex',
+        meta: { title: 'Profile (Admin)', icon: 'user', roles: ['admin'] }
+      }
+    ]
+  },
+
+  { path: '/:pathMatch(.*)', redirect: '/404', hidden: true }
+]
+
+const makeRouter = () => createRouter({
   history: createWebHistory(),
   scrollBehavior: () => ({ top: 0 }),
   routes: constantRoutes
 })
+
+export function resetRouter() {
+  console.log(router.getRoutes())
+  store.dispatch('permission/resetRoutes')
+  console.log(router.getRoutes())
+}
+
+const router: Router = makeRouter()
 
 export default router
