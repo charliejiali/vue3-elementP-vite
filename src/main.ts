@@ -7,7 +7,9 @@ import router from './router'
 import store from './store'
 
 import 'virtual:svg-icons-register'
-import svgIcon from '@/components/SvgIcon'
+import svgIcon from '@/components/SvgIcon/index.vue'
+
+import '@/permission'
 
 createApp(App)
   .component('svg-icon', svgIcon)
