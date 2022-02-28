@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, reactive } from 'vue'
 import defaultSettings from '@/settings'
 import ImgLogo from '@/assets/logo.png'
 

@@ -26,7 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, ref } from 'vue'
 import path from 'path-browserify'
 import { isExternal } from '@/utils/validate'
 import Item from './Item'

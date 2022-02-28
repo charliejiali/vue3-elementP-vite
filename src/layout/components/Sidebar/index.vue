@@ -19,9 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, reactive, computed } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute, useRouter } from 'vue-router'
 import Logo from './Logo.vue'
 import SidebarItem from './SidebarItem.vue'
 import variables from '@/styles/variables.module.scss'
@@ -34,10 +31,9 @@ const data = reactive({
   showLogo: computed(() => {
     return state.settings.sidebarLogo
   }),
-  permission_routes: router.options.routes,
-  // permission_routes: computed(() => {
-  //   return getters.permission_routes
-  // }),
+  permission_routes: computed(() => {
+    return getters.permission_routes
+  }),
   activeMenu: computed(() => {
     const { meta, path } = route
     // if set path, the sidebar will highlight the path you set
