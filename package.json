@@ -19,6 +19,7 @@
     "path-to-regexp": "^6.2.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12",
+    "vue3-count-to": "^1.1.2",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

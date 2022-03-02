@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "noImplicitThis": false,
+    "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "target": "esnext",
