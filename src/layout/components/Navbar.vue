@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import {CaretBottom} from "@element-plus/icons-vue";
+import { CaretBottom } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const router = useRouter()
