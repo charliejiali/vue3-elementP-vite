@@ -6,11 +6,16 @@
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <el-icon class="el-icon-caret-bottom">
+            <caret-bottom />
+          </el-icon>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item @click="logout">
+            <a target="_blank" href="https://github.com/charliejiali/vue3-elementP-vite/">
+              <el-dropdown-item>Github</el-dropdown-item>
+            </a>
+            <el-dropdown-item divided @click="logout">
               <span style="display: block">Log Out</span>
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -21,6 +26,8 @@
 </template>
 
 <script setup lang="ts">
+import {CaretBottom} from "@element-plus/icons-vue";
+
 const route = useRoute()
 const router = useRouter()
 
