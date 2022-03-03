@@ -7,8 +7,8 @@ import { resizeChart } from '../components/mixins/resize'
 import { ObjTy } from '~/common'
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
 import * as echarts from 'echarts/core'
-// 引入折线图图表，图表后缀都为 Chart ，系列类型的定义后缀都为 SeriesOption
-import { LineChart, LineSeriesOption } from 'echarts/charts'
+// 引入图表，图表后缀都为 Chart ，系列类型的定义后缀都为 SeriesOption
+import { RadarChart, RadarSeriesOption } from 'echarts/charts'
 // 引入提示框，标题，直角坐标系，数据集，内置数据转换器组件，组件后缀都为 Component
 import {
   TooltipComponent,
@@ -22,21 +22,21 @@ import {
 import { CanvasRenderer } from 'echarts/renderers'
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
 type ECOption = echarts.ComposeOption<
-  | LineSeriesOption
-  | TooltipComponentOption
-  | GridComponentOption
-  | LegendComponentOption
->
+    | RadarSeriesOption
+    | TooltipComponentOption
+    | GridComponentOption
+    | LegendComponentOption
+    >
 // 注册必须的组件
 echarts.use([
-  LineChart,
+  RadarChart,
   CanvasRenderer,
   GridComponent,
   TooltipComponent,
   LegendComponent
 ])
 
-const animationDuration = 2800
+const animationDuration = 3000
 
 const props = defineProps({
   className: {
@@ -54,10 +54,6 @@ const props = defineProps({
   autoResize: {
     type: Boolean,
     default: true
-  },
-  chartData: {
-    type: Object,
-    required: true
   }
 })
 
@@ -68,73 +64,71 @@ const { resize } = resizeChart(chart)
 const initChart = () => {
   if (div.value) {
     chart = echarts.init(div.value)
-    setOptions(props.chartData)
+    setOptions()
   }
 }
 
-const setOptions = (data: ObjTy) => {
+const setOptions = () => {
   const option: ECOption = {
-    xAxis: {
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      boundaryGap: false,
-      axisTick: {
-        show: false
-      }
-    },
-    grid: {
-      left: 10,
-      right: 10,
-      bottom: 20,
-      top: 30,
-      containLabel: true
-    },
     tooltip: {
       trigger: 'axis',
-      axisPointer: {
-        type: 'cross'
-      },
-      padding: [5, 10]
-    },
-    yAxis: {
-      axisTick: {
-        show: false
+      axisPointer: { // 坐标轴指示器，坐标轴触发有效
+        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
       }
     },
+    radar: {
+      radius: '66%',
+      center: ['50%', '42%'],
+      splitNumber: 8,
+      splitArea: {
+        areaStyle: {
+          color: 'rgba(127,95,132,.3)',
+          opacity: 1,
+          shadowBlur: 45,
+          shadowColor: 'rgba(0,0,0,.5)',
+          shadowOffsetX: 0,
+          shadowOffsetY: 15
+        }
+      },
+      indicator: [
+        { name: 'Sales', max: 10000 },
+        { name: 'Administration', max: 20000 },
+        { name: 'Information Technology', max: 20000 },
+        { name: 'Customer Support', max: 20000 },
+        { name: 'Development', max: 20000 },
+        { name: 'Marketing', max: 20000 }
+      ]
+    },
     legend: {
-      data: ['expected', 'actual']
+      left: 'center',
+      bottom: '10',
+      data: ['Allocated Budget', 'Expected Spending', 'Actual Spending']
     },
     series: [{
-      name: 'expected',
-      itemStyle: {
-        color: '#FF005A'
-      },
-      lineStyle: {
-        color: '#FF005A',
-        width: 2
-      },
-      smooth: true,
-      type: 'line',
-      data: data.expectedData,
-      animationDuration,
-      animationEasing: 'cubicInOut'
-    },
-    {
-      name: 'actual',
-      smooth: true,
-      type: 'line',
-      itemStyle: {
-        color: '#3888fa'
-      },
-      lineStyle: {
-        color: '#3888fa',
-        width: 2
-      },
+      type: 'radar',
+      symbolSize: 0,
       areaStyle: {
-        color: '#f3f8ff'
+        shadowBlur: 13,
+        shadowColor: 'rgba(0,0,0,.2)',
+        shadowOffsetX: 0,
+        shadowOffsetY: 10,
+        opacity: 1
       },
-      data: data.actualData,
-      animationDuration,
-      animationEasing: 'quadraticOut'
+      data: [
+        {
+          value: [5000, 7000, 12000, 11000, 15000, 14000],
+          name: 'Allocated Budget'
+        },
+        {
+          value: [4000, 9000, 15000, 15000, 13000, 11000],
+          name: 'Expected Spending'
+        },
+        {
+          value: [5500, 11000, 12000, 15000, 12000, 12000],
+          name: 'Actual Spending'
+        }
+      ],
+      animationDuration
     }]
   }
   chart.setOption(option)
@@ -147,20 +141,12 @@ onMounted(() => {
 })
 
 watch(
-  () => props.chartData,
-  (val) => {
-    setOptions(val)
-  },
-  { deep: true }
-)
-
-watch(
   () => resize.value,
   (val) => {
     nextTick(() => {
       chart.resize({
         animation: {
-          duration: animationDuration,
+          duration: 300,
           easing: 'cubicInOut'
         }
       })

@@ -7,12 +7,33 @@
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
       <line-chart :chart-data="lineChartData" />
     </el-row>
+
+    <el-row :gutter="32">
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <radar-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <pie-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <bar-chart />
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script setup lang="ts">
 import PanelGroup from './components/PanelGroup.vue'
 import LineChart from './components/LineChart.vue'
+import RadarChart from './components/RadarChart.vue'
+import PieChart from './components/PieChart.vue'
+import BarChart from './components/BarChart.vue'
 
 const _lineChartData = {
   newVisitis: {
@@ -52,6 +73,12 @@ const { lineChartData } = toRefs(state)
     top: 0;
     border: 0;
     right: 0;
+  }
+
+  .chart-wrapper {
+    background: #fff;
+    padding: 16px 16px 0;
+    margin-bottom: 32px;
   }
 }
 </style>

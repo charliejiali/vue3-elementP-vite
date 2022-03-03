@@ -7,8 +7,8 @@ import { resizeChart } from '../components/mixins/resize'
 import { ObjTy } from '~/common'
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
 import * as echarts from 'echarts/core'
-// 引入折线图图表，图表后缀都为 Chart ，系列类型的定义后缀都为 SeriesOption
-import { LineChart, LineSeriesOption } from 'echarts/charts'
+// 引入图表，图表后缀都为 Chart ，系列类型的定义后缀都为 SeriesOption
+import { PieChart, PieSeriesOption } from 'echarts/charts'
 // 引入提示框，标题，直角坐标系，数据集，内置数据转换器组件，组件后缀都为 Component
 import {
   TooltipComponent,
@@ -22,21 +22,19 @@ import {
 import { CanvasRenderer } from 'echarts/renderers'
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
 type ECOption = echarts.ComposeOption<
-  | LineSeriesOption
-  | TooltipComponentOption
-  | GridComponentOption
-  | LegendComponentOption
->
+    | PieSeriesOption
+    | TooltipComponentOption
+    | GridComponentOption
+    | LegendComponentOption
+    >
 // 注册必须的组件
 echarts.use([
-  LineChart,
+  PieChart,
   CanvasRenderer,
   GridComponent,
   TooltipComponent,
   LegendComponent
 ])
-
-const animationDuration = 2800
 
 const props = defineProps({
   className: {
@@ -54,10 +52,6 @@ const props = defineProps({
   autoResize: {
     type: Boolean,
     default: true
-  },
-  chartData: {
-    type: Object,
-    required: true
   }
 })
 
@@ -68,74 +62,39 @@ const { resize } = resizeChart(chart)
 const initChart = () => {
   if (div.value) {
     chart = echarts.init(div.value)
-    setOptions(props.chartData)
+    setOptions()
   }
 }
 
-const setOptions = (data: ObjTy) => {
+const setOptions = () => {
   const option: ECOption = {
-    xAxis: {
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      boundaryGap: false,
-      axisTick: {
-        show: false
-      }
-    },
-    grid: {
-      left: 10,
-      right: 10,
-      bottom: 20,
-      top: 30,
-      containLabel: true
-    },
     tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'cross'
-      },
-      padding: [5, 10]
-    },
-    yAxis: {
-      axisTick: {
-        show: false
-      }
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {c} ({d}%)'
     },
     legend: {
-      data: ['expected', 'actual']
+      left: 'center',
+      bottom: '10',
+      data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
     },
-    series: [{
-      name: 'expected',
-      itemStyle: {
-        color: '#FF005A'
-      },
-      lineStyle: {
-        color: '#FF005A',
-        width: 2
-      },
-      smooth: true,
-      type: 'line',
-      data: data.expectedData,
-      animationDuration,
-      animationEasing: 'cubicInOut'
-    },
-    {
-      name: 'actual',
-      smooth: true,
-      type: 'line',
-      itemStyle: {
-        color: '#3888fa'
-      },
-      lineStyle: {
-        color: '#3888fa',
-        width: 2
-      },
-      areaStyle: {
-        color: '#f3f8ff'
-      },
-      data: data.actualData,
-      animationDuration,
-      animationEasing: 'quadraticOut'
-    }]
+    series: [
+      {
+        name: 'WEEKLY WRITE ARTICLES',
+        type: 'pie',
+        roseType: 'radius',
+        radius: [15, 95],
+        center: ['50%', '38%'],
+        data: [
+          { value: 320, name: 'Industries' },
+          { value: 240, name: 'Technology' },
+          { value: 149, name: 'Forex' },
+          { value: 100, name: 'Gold' },
+          { value: 59, name: 'Forecasts' }
+        ],
+        animationEasing: 'cubicInOut',
+        animationDuration: 2600
+      }
+    ]
   }
   chart.setOption(option)
 }
@@ -147,20 +106,12 @@ onMounted(() => {
 })
 
 watch(
-  () => props.chartData,
-  (val) => {
-    setOptions(val)
-  },
-  { deep: true }
-)
-
-watch(
   () => resize.value,
   (val) => {
     nextTick(() => {
       chart.resize({
         animation: {
-          duration: animationDuration,
+          duration: 300,
           easing: 'cubicInOut'
         }
       })
