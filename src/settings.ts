@@ -1,13 +1,7 @@
-interface SettingsTy {
-    title: string,
-    fixedHeader: boolean,
-    sidebarLogo: boolean
-}
-
-const settings: SettingsTy = {
+const settings = {
   title: 'vue3-elementP-vite',
   fixedHeader: false,
-  sidebarLogo: true
+  sidebarLogo: false
 }
 
 export default settings

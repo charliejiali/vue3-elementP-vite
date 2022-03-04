@@ -35,16 +35,42 @@ export const constantRoutes: RouterTy = [
   {
     path: '/',
     component: Layout,
-    redirect: '/home',
+    redirect: '/dashboard',
     children: [
       {
-        path: 'home',
-        name: 'Home',
-        component: () => import('@/views/home/index.vue'),
-        meta: { title: '主页', icon: 'dashboard' }
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        meta: { title: 'Dashboard', icon: 'dashboard' }
       }
     ]
   },
+  {
+    path: '/table',
+    component: Layout,
+    name: 'Table',
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/table/index.vue'),
+        name: 'TableIndex',
+        meta: { title: 'Table', icon: 'table' }
+      }
+    ]
+  },
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/home',
+  //   children: [
+  //     {
+  //       path: 'home',
+  //       name: 'Home',
+  //       component: () => import('@/views/home/index.vue'),
+  //       meta: { title: '主页', icon: 'dashboard' }
+  //     }
+  //   ]
+  // },
   nestedRouter,
   {
     path: '/error',
@@ -60,13 +86,13 @@ export const constantRoutes: RouterTy = [
         path: '401',
         component: () => import('@/views/error-page/401.vue'),
         name: 'Page401',
-        meta: { title: 'Page 401', noCache: true }
+        meta: { title: '401', noCache: true }
       },
       {
         path: '404',
         component: () => import('@/views/error-page/404.vue'),
         name: 'Page404',
-        meta: { title: 'Page 404', noCache: true }
+        meta: { title: '404', noCache: true }
       }
     ]
   }
