@@ -94,6 +94,8 @@
       </el-table-column>
     </el-table>
 
+    <pagination v-show="total>0" :total="total" :page="listQuery.page" :limit="listQuery.limit" @pagination="handlePagination" />
+
     <el-dialog :title="textMap[dialogStatus]" v-model="dialogFormVisible" draggable>
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
         <el-form-item label="Type" prop="type">
@@ -151,6 +153,7 @@ import { fetchList, updateArticle, createArticle, fetchPv } from '@/api/article'
 import { ObjTy } from '~/common'
 import { parseTime } from '@/utils'
 import { ElForm, ElNotification } from 'element-plus'
+import Pagination from '@/components/Pagination/index.vue'
 type FormInstance = InstanceType<typeof ElForm>
 const dataForm = ref<FormInstance>()
 
@@ -386,6 +389,11 @@ const statusFilter = (status: any) => {
  */
 const typeFilter = (type: string) => {
   return calendarTypeKeyValue[type]
+}
+const handlePagination = ({ page, limit }: { page: number, limit: number}) => {
+  listQuery.page = page
+  listQuery.limit = limit
+  getList()
 }
 
 // 阅读数弹窗
