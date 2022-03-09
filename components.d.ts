@@ -4,6 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BackToTop: typeof import('./src/components/BackToTop/index.vue')['default']
     Breadcrumb: typeof import('./src/components/Breadcrumb/index.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -25,6 +26,7 @@ declare module 'vue' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRate: typeof import('element-plus/es')['ElRate']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
