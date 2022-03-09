@@ -58,6 +58,19 @@ export const constantRoutes: RouterTy = [
       }
     ]
   },
+  {
+    path: '/world-map',
+    component: Layout,
+    name: 'WorldMap',
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/world-map/index.vue'),
+        name: 'WorldMapIndex',
+        meta: { title: 'World Map', icon: 'international' }
+      }
+    ]
+  },
   // {
   //   path: '/',
   //   component: Layout,

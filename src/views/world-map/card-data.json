@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "value": "China 1",
+      "country": "CN"
+    },
+    {
+      "value": "China 2",
+      "country": "CN"
+    },
+    {
+      "value": "USA 1",
+      "country": "US"
+    },
+    {
+      "value": "Russia 4",
+      "country": "RU"
+    }
+  ]
+}

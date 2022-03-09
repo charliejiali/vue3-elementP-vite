@@ -1,0 +1,242 @@
+{
+  "author": "charliejiali",
+  "version": "1.0.0",
+  "update_time": "2022-03-08",
+  "data": [
+    {
+      "cn_name": "美国",
+      "en_name": "USA",
+      "short_name": "US",
+      "coordinate": [-80, 38],
+      "div_coordinate": [310, 45],
+      "line_coordinate": [310, 40],
+      "transform_origin":"left center"
+    },
+    {
+      "cn_name": "巴西",
+      "en_name": "Brazil",
+      "short_name": "BR",
+      "coordinate": [-51.93,-14.24],
+      "div_coordinate": [327,2],
+      "line_coordinate": [326,-6],
+      "transform_origin":"left center"
+    },
+    {
+      "cn_name": "中国",
+      "en_name": "China",
+      "short_name": "CN",
+      "coordinate": [116, 39],
+      "div_coordinate": [158,45],
+      "line_coordinate": [158,40],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "俄罗斯",
+      "en_name": "Russia",
+      "short_name": "RU",
+      "coordinate": [37, 55],
+      "div_coordinate": [45, 70],
+      "line_coordinate": [45,65],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "朝鲜",
+      "en_name": "Democratic People's Republic of Korea",
+      "short_name": "KP",
+      "coordinate": [127.51,40.34],
+      "div_coordinate": [210,30],
+      "line_coordinate": [209,28],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "韩国",
+      "en_name": "South Korea",
+      "short_name": "KR",
+      "coordinate": [127.98,37.66],
+      "div_coordinate": [140,100],
+      "line_coordinate": [153,85],
+      "transform_origin":"left top"
+    },
+
+    {
+      "cn_name": "乌克兰",
+      "en_name": "Ukraine",
+      "short_name": "UA",
+      "coordinate": [31.17, 48.38],
+      "div_coordinate": [85,100],
+      "line_coordinate": [106,92],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "罗马尼亚",
+      "en_name": "Romania",
+      "short_name": "RO",
+      "coordinate": [24.97,45.94],
+      "div_coordinate": [50,100],
+      "line_coordinate": [60,92],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "法国",
+      "en_name": "France",
+      "short_name": "FR",
+      "coordinate": [2.21,46.23],
+      "div_coordinate": [8,100],
+      "line_coordinate": [25,92],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "土耳其",
+      "en_name": "Turkey",
+      "short_name": "TR",
+      "coordinate": [35.24, 38.96],
+      "div_coordinate": [-52,100],
+      "line_coordinate": [-2,66],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "西班牙",
+      "en_name": "Spain",
+      "short_name": "ES",
+      "coordinate": [-3.75,40.46],
+      "div_coordinate": [-52,48],
+      "line_coordinate": [-26,44],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "突尼斯",
+      "en_name": "Tunisia",
+      "short_name": "TN",
+      "coordinate": [9.54, 33.89],
+      "div_coordinate": [-52,38],
+      "line_coordinate": [-7,32],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "利比亚",
+      "en_name": "Libya",
+      "short_name": "LY",
+      "coordinate": [17.23,26.34],
+      "div_coordinate": [-52,20],
+      "line_coordinate": [-2,17],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "尼日利亚",
+      "en_name": "Nigeria",
+      "short_name": "NG",
+      "coordinate": [8.68,9.08],
+      "div_coordinate": [-52,5],
+      "line_coordinate": [-10,-5],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "伊朗",
+      "en_name": "Iran",
+      "short_name": "IR",
+      "coordinate": [53.69,32.43],
+      "div_coordinate": [-52,-20],
+      "line_coordinate": [-1,-30],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "叙利亚",
+      "en_name": "Syrian Arab Republic",
+      "short_name": "SY",
+      "coordinate": [39.00,34.80],
+      "div_coordinate": [3,-59],
+      "line_coordinate": [20,-58],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "以色列",
+      "en_name": "Israel",
+      "short_name": "IL",
+      "coordinate": [34.85,31.05],
+      "div_coordinate": [3,-40],
+      "line_coordinate": [10,-39],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "黎巴嫩",
+      "en_name": "Lebanon",
+      "short_name": "LB",
+      "coordinate": [35.86,33.85],
+      "div_coordinate": [65,50],
+      "line_coordinate": [64,45],
+      "transform_origin":"left center"
+    },
+    {
+      "cn_name": "阿联酋",
+      "en_name": "United Arab Em.",
+      "short_name": "AE",
+      "coordinate": [53.85, 23.42],
+      "div_coordinate": [60, -59],
+      "line_coordinate": [80, -58],
+      "transform_origin":"top left"
+    },
+    {
+      "cn_name": "印度",
+      "en_name": "India",
+      "short_name": "IN",
+      "coordinate": [78.96,20.59],
+      "div_coordinate": [103,8],
+      "line_coordinate": [102,0],
+      "transform_origin":"left center"
+    },
+    {
+      "cn_name": "巴基斯坦",
+      "en_name": "Pakistan",
+      "short_name": "PK",
+      "coordinate": [69.35,30.38],
+      "div_coordinate": [103, -48],
+      "line_coordinate": [102, -47],
+      "transform_origin":"top left"
+    },
+    {
+      "cn_name": "越南",
+      "en_name": "Vietnam",
+      "short_name": "VN",
+      "coordinate": [108.28, 14.06],
+      "div_coordinate": [118, 18],
+      "line_coordinate": [118, 14],
+      "transform_origin":"left center"
+    },
+    {
+      "cn_name": "南非",
+      "en_name": "South Africa",
+      "short_name": "ZA",
+      "coordinate": [22.94,-30.56],
+      "div_coordinate": [42,-40],
+      "line_coordinate": [50,-39],
+      "transform_origin":"left top"
+    },
+    {
+      "cn_name": "加沙地带",
+      "en_name": "Gaza Strip",
+      "short_name": "PS",
+      "coordinate": [31.31, 34.27],
+      "div_coordinate": [33, -10],
+      "line_coordinate": [43, -10],
+      "transform_origin":"top left"
+    },
+    {
+      "cn_name": "阿尔及利亚",
+      "en_name": "Algeria",
+      "short_name": "DZ",
+      "coordinate": [1.66, 28.03],
+      "div_coordinate": [0, 20],
+      "line_coordinate": [17, 20],
+      "transform_origin":"top left"
+    },
+    {
+      "cn_name": "南亚次大陆",
+      "en_name": "The South Asian Subcontinent",
+      "short_name": "SAS",
+      "coordinate": [80, 11],
+      "div_coordinate": [80, 11],
+      "line_coordinate": [80, 11],
+      "transform_origin":"top left"
+    }
+  ]
+}
