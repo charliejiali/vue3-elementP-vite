@@ -44,12 +44,19 @@
   - Dynamic breadcrumb
   - Mock data
   - Responsive Sidebar
+  
+- Table
 
 - Error Page
   - 401
   - 404
 
-- ECharts 
+- ECharts
+  - Bar
+  - Line
+  - Pie
+  - Radar
+  - Map 
 ```
 
 ## Getting started
