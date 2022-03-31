@@ -27,10 +27,10 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       open: true,
       cors: true,
       proxy: {
-        [process.env.VITE_BASE_API as string]: {
+        [process.env.VITE_MOCK_API as string]: {
           target: `http://localhost:${port}`,
           changeOrigin: true,
-          rewrite: (path: any) => path.replace(new RegExp(`^${process.env.VITE_BASE_API}`), '')
+          rewrite: (path: any) => path.replace(new RegExp(`^${process.env.VITE_MOCK_API}`), '')
         }
       }
     },
