@@ -71,6 +71,19 @@ export const constantRoutes: RouterTy = [
       }
     ]
   },
+  {
+    path: '/vue3-tree-chart',
+    component: Layout,
+    name: 'OrgChart',
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/vue3-tree-chart/index.vue'),
+        name: 'VueTreeChart',
+        meta: { title: 'vue3-tree-chart', icon: 'international' }
+      }
+    ]
+  },
   // {
   //   path: '/',
   //   component: Layout,

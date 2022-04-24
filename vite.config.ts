@@ -30,7 +30,8 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         [process.env.VITE_MOCK_API as string]: {
           target: `http://localhost:${port}`,
           changeOrigin: true,
-          rewrite: (path: any) => path.replace(new RegExp(`^${process.env.VITE_MOCK_API}`), '')
+          rewrite: (path: any) =>
+            path.replace(new RegExp(`^${process.env.VITE_MOCK_API}`), '')
         }
       }
     },
@@ -62,12 +63,12 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
          * 在这里写entry后，你将不需要在`index.html`内添加 script 标签，原有标签需要删除
          * @default src/main.ts
          */
-        entry: 'src/main.ts',
+        // entry: 'src/main.ts',
         /**
          * 如果你想将 `index.html`存放在指定文件夹，可以修改它，否则不需要配置
          * @default index.html
          */
-        template: 'public/index.html',
+        // template: 'public/index.html',
 
         /**
          * 需要注入 index.html ejs 模版的数据
@@ -81,14 +82,11 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       AutoImport({
         include: [
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-          /\.vue$/, /\.vue\?vue/, // .vue
+          /\.vue$/,
+          /\.vue\?vue/, // .vue
           /\.md$/ // .md
         ],
-        imports: [
-          'vue',
-          'vuex',
-          'vue-router'
-        ],
+        imports: ['vue', 'vuex', 'vue-router'],
         resolvers: [ElementPlusResolver()]
       }),
       Components({
@@ -103,6 +101,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       }
     },
     build: {
+      minify: 'terser',
       // chunk 大小警告的限制（以 kbs 为单位）。
       chunkSizeWarningLimit: 5000,
       // 在生产时移除console.log
