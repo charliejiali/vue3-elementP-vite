@@ -47,7 +47,7 @@ module.exports = {
     }],
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
-    'vue/name-property-casing': ['error', 'PascalCase'],
+    // 'vue/name-property-casing': ['error', 'PascalCase'],
     'vue/no-v-html': 'off',
     'vue/valid-v-slot': 'off',
     'accessor-pairs': 2,
