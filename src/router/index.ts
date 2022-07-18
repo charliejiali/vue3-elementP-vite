@@ -163,9 +163,7 @@ const makeRouter = () => createRouter({
 })
 
 export function resetRouter() {
-  console.log(router.getRoutes())
   store.dispatch('permission/resetRoutes')
-  console.log(router.getRoutes())
 }
 
 const router: Router = makeRouter()
