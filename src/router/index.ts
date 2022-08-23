@@ -84,6 +84,30 @@ export const constantRoutes: RouterTy = [
       }
     ]
   },
+  {
+    path: '/echarts',
+    component: Layout,
+    name: 'Echarts',
+    redirect: '/echarts/graph',
+    meta: {
+      title: 'Echarts',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'graph',
+        component: () => import('@/views/echarts/Graph/index.vue'),
+        name: 'EchartsGraph',
+        meta: { title: 'Graph' }
+      },
+      {
+        path: 'bar',
+        component: () => import('@/views/echarts/Bar.vue'),
+        name: 'EchartsBar',
+        meta: { title: 'Bar' }
+      }
+    ]
+  },
   // {
   //   path: '/',
   //   component: Layout,
