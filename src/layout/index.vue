@@ -14,10 +14,11 @@
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
+import { useAppStore } from '@/stores/app'
 
-const store = useStore()
+const appStore = useAppStore()
 const sidebarState = computed(() => {
-  return store.state.app.sidebar
+  return appStore.sidebar
 })
 
 const data = reactive({
