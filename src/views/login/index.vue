@@ -71,6 +71,7 @@ import type { ElForm } from 'element-plus'
 import { ObjTy } from '~/common'
 import defaultSettings from '@/settings'
 import { validUsername } from '@/utils/validate'
+import { useUserStore } from '@/stores/user'
 
 const route = useRoute()
 const router = useRouter()
@@ -144,7 +145,7 @@ watch(
 )
 
 const loading = ref(false)
-const store = useStore()
+const userStore = useUserStore()
 
 type FormInstance = InstanceType<typeof ElForm>
 const refLoginForm = ref<FormInstance>()
@@ -154,13 +155,11 @@ const handleLogin = async(formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     loading.value = true
     if (valid) {
-      store
-        .dispatch('user/login', loginForm)
-        .then(({ message }) => {
-          loading.value = false
-          ElMessage({ message: message, type: 'success' })
-          router.push({ path: state.redirect || '/', query: state.otherQuery })
-        })
+      userStore.login(loginForm).then(({ message }) => {
+        loading.value = false
+        ElMessage({ message: message, type: 'success' })
+        router.push({ path: state.redirect || '/', query: state.otherQuery })
+      })
         .catch((err) => {
           console.log('login error', err)
           loading.value = false
