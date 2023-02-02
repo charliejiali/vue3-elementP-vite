@@ -27,19 +27,24 @@
 
 <script setup lang="ts">
 import { CaretBottom } from '@element-plus/icons-vue'
+import { useAppStore } from '@/stores/app'
+import { useUserStore } from '@/stores/user'
 
 const route = useRoute()
 const router = useRouter()
 
-const { state, dispatch } = useStore()
+const appStore = useAppStore()
 const sidebar = computed(() => {
-  return state.app.sidebar
+  return appStore.sidebar
 })
+
 const toggleSideBar = () => {
-  dispatch('app/toggleSideBar')
+  appStore.toggleSideBar()
 }
+
+const userStore = useUserStore()
 const logout = () => {
-  dispatch('user/logout').then(_ => {
+  userStore.logout().then(_ => {
     router.push(`/login?redirect=${route.fullPath}`)
   })
 }
