@@ -1,11 +1,10 @@
-import { ObjTy } from '~/common'
 /**
  * Parse the time to string
  * @param {(Object|string|number)} time
  * @param {string} cFormat
  * @returns {string | null}
  */
-export function parseTime(time: ObjTy | string | number, cFormat: string) {
+export function parseTime(time: any | string | number, cFormat: string) {
   if (arguments.length === 0 || !time) {
     return ''
   }
@@ -78,6 +77,7 @@ export function debounce(func: any, wait: number, immediate: boolean) {
   }
 
   return function(...args: any) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     context = this
     timestamp = +new Date()
     const callNow = immediate && !timeout
