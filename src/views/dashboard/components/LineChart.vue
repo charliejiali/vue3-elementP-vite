@@ -4,7 +4,6 @@
 
 <script setup lang="ts">
 import { resizeChart } from '../components/mixins/resize'
-import { ObjTy } from '~/common'
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
 import * as echarts from 'echarts/core'
 // 引入折线图图表，图表后缀都为 Chart ，系列类型的定义后缀都为 SeriesOption
@@ -72,7 +71,7 @@ const initChart = () => {
   }
 }
 
-const setOptions = (data: ObjTy) => {
+const setOptions = (data: any) => {
   const option: ECOption = {
     xAxis: {
       data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
