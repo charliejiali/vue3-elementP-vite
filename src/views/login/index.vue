@@ -68,10 +68,11 @@
 
 <script setup lang="ts">
 import type { ElForm } from 'element-plus'
-import { ObjTy } from '~/common'
 import defaultSettings from '@/settings'
 import { validUsername } from '@/utils/validate'
 import { useUserStore } from '@/stores/user'
+import { LocationQuery } from 'vue-router'
+import { UserLogin } from '~/user'
 
 const route = useRoute()
 const router = useRouter()
@@ -114,18 +115,16 @@ const loginRules = reactive({
     }
   ]
 })
-const loginForm = reactive({
+const loginForm: UserLogin = reactive({
   username: 'admin',
   password: '123456'
 })
-
-const state: ObjTy = reactive({
+const state: { otherQuery: { [propName: string]: string}, redirect: any } = reactive({
   otherQuery: {},
   redirect: undefined
 })
-
-const getOtherQuery = (query: ObjTy) => {
-  return Object.keys(query).reduce((acc: any, cur: any) => {
+const getOtherQuery = (query: LocationQuery) => {
+  return Object.keys(query).reduce((acc: any, cur: string) => {
     if (cur !== 'redirect') {
       acc[cur] = query[cur]
     }
@@ -135,7 +134,7 @@ const getOtherQuery = (query: ObjTy) => {
 
 watch(
   () => route.query,
-  (query) => {
+  (query: LocationQuery) => {
     if (query) {
       state.redirect = query.redirect
       state.otherQuery = getOtherQuery(query)
@@ -152,7 +151,7 @@ const refLoginForm = ref<FormInstance>()
 
 const handleLogin = async(formEl: FormInstance | undefined) => {
   if (!formEl) return
-  formEl.validate((valid) => {
+  await formEl.validate((valid) => {
     loading.value = true
     if (valid) {
       userStore.login(loginForm).then(({ message }) => {

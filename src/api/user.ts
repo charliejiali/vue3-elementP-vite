@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { ObjTy } from '~/common'
+import { UserLogin, UserInfo } from '~/user'
 
 enum API {
   login = '/user/login',
@@ -7,7 +7,7 @@ enum API {
   logout = '/user/logout'
 }
 
-export function login(data: ObjTy) {
+export function login(data: UserLogin) {
   return request({
     baseURL: import.meta.env.VITE_MOCK_API,
     url: API.login,
@@ -16,7 +16,7 @@ export function login(data: ObjTy) {
   })
 }
 
-export function getInfo(params: ObjTy) {
+export function getInfo(params: UserInfo) {
   return request({
     baseURL: import.meta.env.VITE_MOCK_API,
     url: API.info,
@@ -25,7 +25,7 @@ export function getInfo(params: ObjTy) {
   })
 }
 
-export function logout(data: ObjTy) {
+export function logout(data: UserInfo) {
   return request({
     baseURL: import.meta.env.VITE_MOCK_API,
     url: API.logout,

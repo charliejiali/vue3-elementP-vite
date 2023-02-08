@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { getToken, removeToken, setToken } from '@/utils/auth'
 import { getInfo, login, logout } from '@/api/user'
 import { resetRouter } from '@/router'
+import { UserLogin, UserInfo } from '~/user'
 
 interface UserState {
   token: string | null
@@ -20,7 +21,7 @@ export const useUserStore = defineStore({
     }
   },
   actions: {
-    login(userInfo: {username: string, password: string}) {
+    login(userInfo: UserLogin) {
       const { username, password } = userInfo
       return new Promise<any>((resolve, reject) => {
         login({
@@ -37,8 +38,11 @@ export const useUserStore = defineStore({
       })
     },
     getInfo() {
+      const userInfo: UserInfo = {
+        token: this.token
+      }
       return new Promise<{roles: string[]}>((resolve, reject) => {
-        getInfo({ token: this.token }).then(response => {
+        getInfo(userInfo).then(response => {
           const { data } = response
 
           if (!data) {
@@ -63,8 +67,11 @@ export const useUserStore = defineStore({
       })
     },
     logout() {
+      const userInfo: UserInfo = {
+        token: this.token
+      }
       return new Promise((resolve, reject) => {
-        logout({ token: this.token }).then(_ => {
+        logout(userInfo).then(_ => {
           this.setToken('')
           this.setRoles([])
           removeToken()
