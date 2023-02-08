@@ -1,6 +1,4 @@
-import { ObjTy } from '../types/common'
-
-const tokens: ObjTy = {
+const tokens = {
   admin: {
     token: 'admin-token'
   },
@@ -9,7 +7,7 @@ const tokens: ObjTy = {
   }
 }
 
-const users: ObjTy = {
+const users = {
   'admin-token': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
@@ -26,7 +24,7 @@ export default [
   {
     url: '/user/login',
     method: 'post',
-    response: (config:{body:{username: string}}) => {
+    response: (config: { body: { username: string }}) => {
       const { username } = config.body
       const token = tokens[username]
 
@@ -47,7 +45,7 @@ export default [
   {
     url: '/user/info',
     method: 'get',
-    response: (config:{query:{token: string}}) => {
+    response: (config: { query: { token: string }}) => {
       const { token } = config.query
       const info = users[token]
 
