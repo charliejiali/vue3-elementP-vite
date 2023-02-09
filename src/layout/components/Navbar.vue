@@ -7,7 +7,7 @@
         <div class="avatar-wrapper">
           <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" class="user-avatar">
           <el-icon class="el-icon-caret-bottom">
-            <caret-bottom />
+            <IEpCaret-bottom />
           </el-icon>
         </div>
         <template #dropdown>
@@ -26,7 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import { CaretBottom } from '@element-plus/icons-vue'
 import { useAppStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 
