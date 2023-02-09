@@ -4,11 +4,11 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { viteMockServe } from 'vite-plugin-mock'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import ElementPlus from 'unplugin-element-plus/vite'
-
 import { resolve } from 'path'
 import defaultSettings from './src/settings'
 
@@ -38,7 +38,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     plugins: [
       vue(),
       vueJsx(),
-      ElementPlus(),
+      // ElementPlus(),
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/icons/svg')],
         symbolId: 'icon-[dir]-[name]',
@@ -87,11 +87,24 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           /\.md$/ // .md
         ],
         imports: ['vue', 'vuex', 'vue-router'],
-        resolvers: [ElementPlusResolver()]
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            prefix: 'Icon'
+          })
+        ]
       }),
       Components({
         dirs: ['src/components/'],
-        resolvers: [ElementPlusResolver()]
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            enabledCollections: ['ep']
+          })
+        ]
+      }),
+      Icons({
+        autoInstall: true
       })
     ],
     resolve: {
