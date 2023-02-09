@@ -1,7 +1,12 @@
 import { defineStore } from 'pinia'
 import { RouteItemTy, RouterRowTy, RouterTy } from '~/router'
-import { PermissionTy } from '~/store'
 import { asyncRoutes, constantRoutes } from '@/router'
+
+interface PermissionState {
+  routes: any[]
+  addRoutes: any[]
+  removeRoutes: any[]
+}
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -39,7 +44,7 @@ export function filterAsyncRoutes(routes: RouterTy, roles: string[]) {
 
 export const usePermissionStore = defineStore({
   id: 'permission',
-  state: (): PermissionTy => {
+  state: (): PermissionState => {
     return {
       routes: [],
       addRoutes: [],
@@ -58,14 +63,12 @@ export const usePermissionStore = defineStore({
         } else {
           accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
         }
-        // commit('SET_ROUTES', accessedRoutes)
         this.setRoutes(accessedRoutes)
         resolve(accessedRoutes)
       })
     },
     setRemoveRoutes(removeRoutes: any[]) {
       return new Promise(resolve => {
-        // commit('SET_REMOVE_ROUTES', removeRoutes)
         this.makeRemoveRoutes(removeRoutes)
         resolve(removeRoutes)
       })
@@ -74,7 +77,6 @@ export const usePermissionStore = defineStore({
       this.removeRoutes.forEach((i: any) => {
         i()
       })
-      // commit('SET_REMOVE_ROUTES', [])
       this.makeRemoveRoutes([])
     },
     setRoutes(routes: RouterTy) {
