@@ -1,9 +1,9 @@
 import { createRouter, createWebHashHistory, createWebHistory, Router } from 'vue-router'
 import Layout from '@/layout/index.vue'
 import { RouterTy } from '~/router'
-import store from '@/store'
 
 import nestedRouter from './modules/nested'
+import { usePermissionStore } from '@/stores/permission'
 
 export const constantRoutes: RouterTy = [
   {
@@ -108,19 +108,6 @@ export const constantRoutes: RouterTy = [
       }
     ]
   },
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   redirect: '/home',
-  //   children: [
-  //     {
-  //       path: 'home',
-  //       name: 'Home',
-  //       component: () => import('@/views/home/index.vue'),
-  //       meta: { title: '主页', icon: 'dashboard' }
-  //     }
-  //   ]
-  // },
   nestedRouter,
   {
     path: '/error',
@@ -187,7 +174,8 @@ const makeRouter = () => createRouter({
 })
 
 export function resetRouter() {
-  store.dispatch('permission/resetRoutes')
+  const permissionStore = usePermissionStore()
+  permissionStore.resetRoutes()
 }
 
 const router: Router = makeRouter()
