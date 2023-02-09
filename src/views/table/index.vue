@@ -11,11 +11,11 @@
       <el-select v-model="listQuery.sort" style="width: 140px" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select>
-      <el-button type="primary" :icon="Search" @click="handleFilter">
-        Search
+      <el-button type="primary" @click="handleFilter">
+        Search<el-icon class="el-icon--right"><IEpSearch /></el-icon>
       </el-button>
-      <el-button style="margin-left: 10px;" type="primary" :icon="Edit" @click="handleCreate">
-        Add
+      <el-button style="margin-left: 10px;" type="primary" @click="handleCreate">
+        Add<el-icon class="el-icon--right"><IEpEdit /></el-icon>
       </el-button>
       <el-checkbox v-model="showReviewer" style="margin-left:15px;" @change="tableKey=tableKey+1">
         reviewer
@@ -98,15 +98,15 @@
 
     <el-dialog :title="textMap[dialogStatus]" v-model="dialogFormVisible" draggable>
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="Type" prop="type">
+        <el-form-item label="Type">
           <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
             <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
           </el-select>
         </el-form-item>
-        <el-form-item label="Date" prop="timestamp">
+        <el-form-item label="Date">
           <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
         </el-form-item>
-        <el-form-item label="Title" prop="title">
+        <el-form-item label="Title">
           <el-input v-model="temp.title" />
         </el-form-item>
         <el-form-item label="Status">
@@ -148,9 +148,8 @@
 </template>
 
 <script setup lang="ts">
-import { Search, Edit } from '@element-plus/icons-vue'
+import { ArticleQuery, ArticleData } from '~/article'
 import { fetchList, updateArticle, createArticle, fetchPv } from '@/api/article'
-import { ObjTy } from '~/common'
 import { parseTime } from '@/utils'
 import { ElForm, ElNotification } from 'element-plus'
 import Pagination from '@/components/Pagination/index.vue'
@@ -183,17 +182,17 @@ const rules = {
   title: [{ required: true, message: 'title is required', trigger: 'blur' }]
 }
 const statusOptions = ['published', 'draft', 'deleted']
-const listQuery = reactive({
+const listQuery: ArticleQuery = reactive({
   page: 1,
   limit: 20,
   importance: undefined,
-  title: undefined,
-  type: undefined,
+  title: '',
+  type: '',
   sort: '+id'
 })
 
 // 表单弹窗
-const defaultTemp = {
+const defaultTemp: ArticleData = {
   id: '',
   importance: 1,
   remark: '',
@@ -338,7 +337,7 @@ const handleDelete = (row: any, index: number) => {
  * 排序
  * @param data
  */
-const sortChange = (data: ObjTy) => {
+const sortChange = (data: { prop: string, order: string }) => {
   const { prop, order } = data
   if (prop === 'id') {
     sortByID(order)

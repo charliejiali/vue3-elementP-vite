@@ -1,7 +1,7 @@
 import request from '@/utils/request'
-import { ObjTy } from '~/common'
+import { ArticleQuery, ArticleData } from '~/article'
 
-export function fetchList(params: ObjTy) {
+export function fetchList(params: ArticleQuery) {
   return request({
     baseURL: import.meta.env.VITE_MOCK_API,
     url: '/article/list',
@@ -10,7 +10,7 @@ export function fetchList(params: ObjTy) {
   })
 }
 
-export function updateArticle(data: ObjTy) {
+export function updateArticle(data: ArticleData) {
   return request({
     baseURL: import.meta.env.VITE_MOCK_API,
     url: '/article/update',
@@ -19,7 +19,7 @@ export function updateArticle(data: ObjTy) {
   })
 }
 
-export function createArticle(data: ObjTy) {
+export function createArticle(data: ArticleData) {
   return request({
     baseURL: import.meta.env.VITE_MOCK_API,
     url: '/article/create',
@@ -28,7 +28,7 @@ export function createArticle(data: ObjTy) {
   })
 }
 
-export function fetchPv(params: ObjTy) {
+export function fetchPv(params: { pv: number }) {
   return request({
     baseURL: import.meta.env.VITE_MOCK_API,
     url: '/article/pv',
