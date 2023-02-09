@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+import 'element-plus/dist/index.css'
 import '@/styles/index.scss'
 
 import router from './router'
@@ -12,7 +13,7 @@ import '@/permission'
 
 import VueBlocksTree from 'vue3-blocks-tree'
 import 'vue3-blocks-tree/dist/vue3-blocks-tree.css'
-const defaultOptions = { treeName: 'blocks-tree' }
+const defaultOptions = { treeName: 'blocks-tree', nodeName: 'vue3-blocks-tree' }
 
 import { createPinia } from 'pinia'
 const pinia = createPinia()
