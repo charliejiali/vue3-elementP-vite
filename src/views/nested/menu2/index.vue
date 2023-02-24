@@ -1,3 +1,5 @@
 <template>
-  menu2
+  <div>
+    menu2
+  </div>
 </template>
