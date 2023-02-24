@@ -12,7 +12,7 @@
         <ul class="list-unstyled">
           <li>或者你可以去:</li>
           <li class="link-type">
-            <router-link to="/home">回首页</router-link>
+            <router-link to="/dashboard">回首页</router-link>
           </li>
           <li class="link-type">
             <a href="https://www.taobao.com/">随便看看</a>
@@ -32,7 +32,6 @@
 
 <script setup lang="ts">
 import errGif from '@/assets/401_images/401.gif'
-import { getCurrentInstance, toRefs, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const state = reactive({
@@ -45,7 +44,7 @@ const route = useRoute()
 const router = useRouter()
 const back = () => {
   if (route.query.noGoBack) {
-    router.push({ path: '/home' })
+    router.push({ path: '/dashboard' })
   } else {
     router.go(-1)
   }
