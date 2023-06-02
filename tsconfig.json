@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
     "noImplicitThis": false,
-    "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
-    "target": "esnext",
+    "target": "ESNext",
     "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
@@ -31,10 +30,8 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "auto-imports.d.ts"
-  ],
-  "references": [{ "path": "./tsconfig.node.json" }],
-  "exclude": [
-//    "auto-imports.d.ts"
+    "auto-imports.d.ts",
+    "vite.config.ts",
+    "src/settings.ts"
   ]
 }

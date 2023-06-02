@@ -1,20 +1,11 @@
-import Mock from 'mockjs'
+import * as Mock from 'mockjs'
 const random = Mock.Random
 
 export default [
   {
     url: '/echarts/graph-data',
     method: 'get',
-    response: (req: any) => {
-      interface Data {
-        name: string
-        value: number
-        children: {
-          name: string
-          value: number
-        }[]
-      }
-
+    response: _ => {
       const data = []
       for (let i = 0, len = random.integer(1, 20); i < len; i++) {
         data.push({

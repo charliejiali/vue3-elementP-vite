@@ -1,4 +1,4 @@
-import Mock from 'mockjs'
+import * as Mock from 'mockjs'
 
 const List: any[] = []
 const count = 100

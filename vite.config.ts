@@ -12,6 +12,8 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { resolve } from 'path'
 import defaultSettings from './src/settings'
 
+import { visualizer } from 'rollup-plugin-visualizer'
+
 const port = 9527
 
 // https://vitejs.dev/config/
@@ -22,9 +24,8 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
 
   return {
     server: {
-      host: '0,0,0,0',
+      host: 'localhost',
       port,
-      open: true,
       cors: true,
       proxy: {
         [process.env.VITE_MOCK_API as string]: {
@@ -105,7 +106,8 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       }),
       Icons({
         autoInstall: true
-      })
+      }),
+      visualizer()
     ],
     resolve: {
       alias: {
@@ -135,7 +137,10 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         output: {
           chunkFileNames: 'static/js/[name]-[hash].js',
           entryFileNames: 'static/js/[name]-[hash].js',
-          assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
+          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+          manualChunks: {
+            echarts: ['echarts']
+          }
         }
       }
     },
