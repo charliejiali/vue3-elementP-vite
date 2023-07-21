@@ -5,8 +5,6 @@
 </template>
 
 <script setup>
-// import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-// const locale = zhCn
-import en from 'element-plus/lib/locale/lang/en'
+import en from 'element-plus/dist/locale/en.mjs'
 const locale = en
 </script>
