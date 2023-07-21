@@ -52,5 +52,8 @@
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^1.6.5"
+  },
+  "volta": {
+    "node": "14.18.3"
   }
 }

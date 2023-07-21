@@ -69,7 +69,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
          * 如果你想将 `index.html`存放在指定文件夹，可以修改它，否则不需要配置
          * @default index.html
          */
-        // template: 'public/index.html',
+        template: 'public/index.html',
 
         /**
          * 需要注入 index.html ejs 模版的数据
