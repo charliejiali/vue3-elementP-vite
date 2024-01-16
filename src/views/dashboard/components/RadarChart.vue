@@ -90,12 +90,12 @@ const setOptions = () => {
         }
       },
       indicator: [
-        { name: 'Sales', max: 10000 },
-        { name: 'Administration', max: 20000 },
-        { name: 'Information Technology', max: 20000 },
-        { name: 'Customer Support', max: 20000 },
-        { name: 'Development', max: 20000 },
-        { name: 'Marketing', max: 20000 }
+        { name: 'Sales', max: 8000 },
+        { name: 'Administration', max: 16000 },
+        { name: 'Information Technology', max: 16000 },
+        { name: 'Customer Support', max: 16000 },
+        { name: 'Development', max: 16000 },
+        { name: 'Marketing', max: 16000 }
       ]
     },
     legend: {
