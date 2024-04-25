@@ -1,10 +1,10 @@
 <template>
   <div>
-    {{ text }}
+    {{ name }}
   </div>
 </template>
 
 <script setup lang="ts">
-const text = ref('')
-text.value = nestedConfig.menu2
+const name = ref('')
+name.value = window.dict.settings.menu2Name
 </script>

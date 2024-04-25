@@ -99,7 +99,7 @@ const setOptions = () => {
       ]
     },
     legend: {
-      left: 'center',
+      left: ' center',
       bottom: '10',
       data: ['Allocated Budget', 'Expected Spending', 'Actual Spending']
     },
