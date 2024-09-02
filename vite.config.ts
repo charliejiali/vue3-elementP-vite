@@ -1,4 +1,6 @@
-import { UserConfigExport, ConfigEnv, loadEnv } from 'vite'
+import { resolve } from 'node:path'
+import type { ConfigEnv, UserConfigExport } from 'vite'
+import { loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
@@ -9,10 +11,8 @@ import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { resolve } from 'path'
-import defaultSettings from './src/settings'
-
 import { visualizer } from 'rollup-plugin-visualizer'
+import defaultSettings from './src/settings'
 
 const port = 9527
 
@@ -33,9 +33,9 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           target: `http://localhost:${port}`,
           changeOrigin: true,
           rewrite: (path: any) =>
-            path.replace(new RegExp(`^${process.env.VITE_MOCK_API}`), '')
-        }
-      }
+            path.replace(new RegExp(`^${process.env.VITE_MOCK_API}`), ''),
+        },
+      },
     },
     plugins: [
       vue(),
@@ -44,10 +44,10 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
       createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), 'src/icons/svg')],
         symbolId: 'icon-[dir]-[name]',
-        svgoOptions: isBuild
+        svgoOptions: isBuild,
       }),
       viteMockServe({
-        ignore: /^\_/,
+        ignore: /^_/,
         supportTs: true, // 是否开启支持ts
         mockPath: 'mock', // 设置mockPath为根目录下的mock目录
         watchFiles: true,
@@ -57,7 +57,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
         injectCode: `
           import { setupProdMockServer } from '../mock/_mockProdServer';
           setupProdMockServer();
-        `
+        `,
       }),
       createHtmlPlugin({
         minify: isBuild,
@@ -77,44 +77,44 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
          */
         inject: {
           data: {
-            title: defaultSettings.title
-          }
-        }
+            title: defaultSettings.title,
+          },
+        },
       }),
       AutoImport({
         include: [
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
           /\.vue$/,
           /\.vue\?vue/, // .vue
-          /\.md$/ // .md
+          /\.md$/, // .md
         ],
         imports: ['vue', 'vuex', 'vue-router'],
         resolvers: [
           ElementPlusResolver(),
           IconsResolver({
-            prefix: 'Icon'
-          })
-        ]
+            prefix: 'Icon',
+          }),
+        ],
       }),
       Components({
         dirs: ['src/components/'],
         resolvers: [
           ElementPlusResolver(),
           IconsResolver({
-            enabledCollections: ['ep']
-          })
-        ]
+            enabledCollections: ['ep'],
+          }),
+        ],
       }),
       Icons({
-        autoInstall: true
+        autoInstall: true,
       }),
-      visualizer()
+      visualizer(),
     ],
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),
-        'path': 'path-browserify'
-      }
+        'path': 'path-browserify',
+      },
     },
     build: {
       minify: 'terser',
@@ -128,8 +128,8 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           drop_console: false,
           pure_funcs: ['console.log', 'console.info'],
           // 将调试去除
-          drop_debugger: true
-        }
+          drop_debugger: true,
+        },
       },
       // 配置静态资源路径
       assetsDir: 'static/assets',
@@ -140,17 +140,17 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
           entryFileNames: 'static/js/[name]-[hash].js',
           assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
           manualChunks: {
-            echarts: ['echarts']
-          }
-        }
-      }
+            echarts: ['echarts'],
+          },
+        },
+      },
     },
     css: {
       preprocessorOptions: {
         scss: {
-          charset: false
-        }
-      }
-    }
+          charset: false,
+        },
+      },
+    },
   }
 }

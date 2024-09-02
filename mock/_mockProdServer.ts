@@ -21,7 +21,7 @@ export function setupProdMockServer() {
   const mockModules = [
     ...userMock,
     ...articleMock,
-    ...echartsMock
+    ...echartsMock,
   ]
   createProdMockServer(mockModules)
 }

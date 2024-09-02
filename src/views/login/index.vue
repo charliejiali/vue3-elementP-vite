@@ -1,21 +1,148 @@
+<script setup lang="ts">
+import type { ElForm } from 'element-plus'
+import type { LocationQuery } from 'vue-router'
+import defaultSettings from '@/settings'
+import { validUsername } from '@/utils/validate'
+import { useUserStore } from '@/stores/user'
+import type { UserLogin } from '~/user'
+
+const route = useRoute()
+const router = useRouter()
+
+function validateUsername(rule: any, value: any, callback: any) {
+  if (!value) {
+    return callback(new Error('请输入用户名'))
+  }
+  else {
+    if (!validUsername(value)) {
+      callback(new Error('请输入正确的用户名'))
+    }
+    else {
+      callback()
+    }
+  }
+}
+function validatePassword(rule: any, value: any, callback: any) {
+  if (!value) {
+    return callback(new Error('请输入密码'))
+  }
+  else {
+    if (value.length < 6) {
+      callback(new Error('密码长度不能小于六位'))
+    }
+    else {
+      callback()
+    }
+  }
+}
+const loginRules = reactive({
+  username: [
+    {
+      required: true,
+      validator: validateUsername,
+      trigger: 'blur',
+    },
+  ],
+  password: [
+    {
+      required: true,
+      validator: validatePassword,
+      trigger: 'blur',
+    },
+  ],
+})
+const loginForm: UserLogin = reactive({
+  username: 'admin',
+  password: '123456',
+})
+const state: { otherQuery: { [propName: string]: string }, redirect: any } = reactive({
+  otherQuery: {},
+  redirect: undefined,
+})
+function getOtherQuery(query: LocationQuery) {
+  return Object.keys(query).reduce((acc: any, cur: string) => {
+    if (cur !== 'redirect') {
+      acc[cur] = query[cur]
+    }
+    return acc
+  }, {})
+}
+
+watch(
+  () => route.query,
+  (query: LocationQuery) => {
+    if (query) {
+      state.redirect = query.redirect
+      state.otherQuery = getOtherQuery(query)
+    }
+  },
+  { immediate: true },
+)
+
+const loading = ref(false)
+const userStore = useUserStore()
+
+type FormInstance = InstanceType<typeof ElForm>
+const refLoginForm = ref<FormInstance>()
+
+async function handleLogin(formEl: FormInstance | undefined) {
+  if (!formEl)
+    return
+  await formEl.validate((valid) => {
+    loading.value = true
+    if (valid) {
+      userStore.login(loginForm).then(({ message }) => {
+        loading.value = false
+        ElMessage({ message, type: 'success' })
+        router.push({ path: state.redirect || '/', query: state.otherQuery })
+      })
+        .catch((err) => {
+          console.log('login error', err)
+          loading.value = false
+        })
+    }
+    else {
+      console.log('error submit!!')
+      loading.value = false
+      return false
+    }
+  })
+}
+
+const passwordType = ref('password')
+const refPassword: any = ref(null)
+function showPwd() {
+  if (passwordType.value === 'password') {
+    passwordType.value = ''
+  }
+  else {
+    passwordType.value = 'password'
+  }
+  nextTick(() => {
+    refPassword.value.focus()
+  })
+}
+</script>
+
 <template>
   <div class="login-container">
     <el-form
+      ref="refLoginForm"
       :model="loginForm"
       :rules="loginRules"
-      ref="refLoginForm"
       class="login-form"
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">{{ defaultSettings.title }}</h3>
+        <h3 class="title">
+          {{ defaultSettings.title }}
+        </h3>
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
           v-model="loginForm.username"
           placeholder="用户名"
           name="username"
@@ -65,125 +192,6 @@
     </el-form>
   </div>
 </template>
-
-<script setup lang="ts">
-import type { ElForm } from 'element-plus'
-import defaultSettings from '@/settings'
-import { validUsername } from '@/utils/validate'
-import { useUserStore } from '@/stores/user'
-import { LocationQuery } from 'vue-router'
-import { UserLogin } from '~/user'
-
-const route = useRoute()
-const router = useRouter()
-
-const validateUsername = (rule: any, value: any, callback: any) => {
-  if (!value) {
-    return callback(new Error('请输入用户名'))
-  } else {
-    if (!validUsername(value)) {
-      callback(new Error('请输入正确的用户名'))
-    } else {
-      callback()
-    }
-  }
-}
-const validatePassword = (rule: any, value: any, callback: any) => {
-  if (!value) {
-    return callback(new Error('请输入密码'))
-  } else {
-    if (value.length < 6) {
-      callback(new Error('密码长度不能小于六位'))
-    } else {
-      callback()
-    }
-  }
-}
-const loginRules = reactive({
-  username: [
-    {
-      required: true,
-      validator: validateUsername,
-      trigger: 'blur'
-    }
-  ],
-  password: [
-    {
-      required: true,
-      validator: validatePassword,
-      trigger: 'blur'
-    }
-  ]
-})
-const loginForm: UserLogin = reactive({
-  username: 'admin',
-  password: '123456'
-})
-const state: { otherQuery: { [propName: string]: string}, redirect: any } = reactive({
-  otherQuery: {},
-  redirect: undefined
-})
-const getOtherQuery = (query: LocationQuery) => {
-  return Object.keys(query).reduce((acc: any, cur: string) => {
-    if (cur !== 'redirect') {
-      acc[cur] = query[cur]
-    }
-    return acc
-  }, {})
-}
-
-watch(
-  () => route.query,
-  (query: LocationQuery) => {
-    if (query) {
-      state.redirect = query.redirect
-      state.otherQuery = getOtherQuery(query)
-    }
-  },
-  { immediate: true }
-)
-
-const loading = ref(false)
-const userStore = useUserStore()
-
-type FormInstance = InstanceType<typeof ElForm>
-const refLoginForm = ref<FormInstance>()
-
-const handleLogin = async(formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate((valid) => {
-    loading.value = true
-    if (valid) {
-      userStore.login(loginForm).then(({ message }) => {
-        loading.value = false
-        ElMessage({ message: message, type: 'success' })
-        router.push({ path: state.redirect || '/', query: state.otherQuery })
-      })
-        .catch((err) => {
-          console.log('login error', err)
-          loading.value = false
-        })
-    } else {
-      console.log('error submit!!')
-      loading.value = false
-      return false
-    }
-  })
-}
-
-const passwordType = ref('password')
-const refPassword: any = ref(null)
-const showPwd = () => {
-  if (passwordType.value === 'password') {
-    passwordType.value = ''
-  } else {
-    passwordType.value = 'password'
-  }
-  nextTick(() => {
-    refPassword.value.focus()
-  })
-}
-</script>
 
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */

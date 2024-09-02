@@ -1,67 +1,67 @@
 const tokens = {
   admin: {
-    token: 'admin-token'
+    token: 'admin-token',
   },
   editor: {
-    token: 'editor-token'
-  }
+    token: 'editor-token',
+  },
 }
 
 const users = {
   'admin-token': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
-    name: 'Super Admin'
+    name: 'Super Admin',
   },
   'editor-token': {
     roles: ['editor'],
     introduction: 'I am an editor',
-    name: 'Normal Editor'
-  }
+    name: 'Normal Editor',
+  },
 }
 
 export default [
   {
     url: '/user/login',
     method: 'post',
-    response: (config: { body: { username: string }}) => {
+    response: (config: { body: { username: string } }) => {
       const { username } = config.body
       const token = tokens[username]
 
       if (!token) {
         return {
           code: 60204,
-          message: 'Account and password are incorrect.'
+          message: 'Account and password are incorrect.',
         }
       }
 
       return {
         code: 200,
         message: '登录成功！',
-        data: token
+        data: token,
       }
-    }
+    },
   },
   {
     url: '/user/info',
     method: 'get',
-    response: (config: { query: { token: string }}) => {
+    response: (config: { query: { token: string } }) => {
       const { token } = config.query
       const info = users[token]
 
       if (!info) {
         return {
           code: 50008,
-          message: 'Login failed, unable to get user details.'
+          message: 'Login failed, unable to get user details.',
         }
       }
 
       return {
         code: 200,
         message: '获取用户信息成功！',
-        data: info
+        data: info,
       }
-    }
+    },
   },
   {
     url: '/user/logout',
@@ -71,9 +71,9 @@ export default [
         code: 200,
         message: '登出成功！',
         data: {
-          token: '@guid'
-        }
+          token: '@guid',
+        },
       }
-    }
-  }
+    },
+  },
 ]
