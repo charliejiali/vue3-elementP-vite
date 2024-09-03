@@ -88,7 +88,7 @@ const refLoginForm = ref<FormInstance>()
 async function handleLogin(formEl: FormInstance | undefined) {
   if (!formEl)
     return
-  await formEl.validate((valid) => {
+  await formEl.validate((valid: boolean): void => {
     loading.value = true
     if (valid) {
       userStore.login(loginForm).then(({ message }) => {
@@ -104,7 +104,6 @@ async function handleLogin(formEl: FormInstance | undefined) {
     else {
       console.log('error submit!!')
       loading.value = false
-      return false
     }
   })
 }
