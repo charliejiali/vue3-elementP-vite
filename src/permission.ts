@@ -1,17 +1,17 @@
-import router from './router'
-import NProgress from 'nprogress' // progress bar
-import 'nprogress/nprogress.css' // progress bar style
+import type { RouterRowTy } from '~/router'
+import { usePermissionStore } from '@/stores/permission'
+import { useUserStore } from '@/stores/user'
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
-import { RouterRowTy } from '~/router'
-import { useUserStore } from '@/stores/user'
-import { usePermissionStore } from '@/stores/permission'
+import NProgress from 'nprogress' // progress bar
+import router from './router'
+import 'nprogress/nprogress.css' // progress bar style
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login', '/logout'] // no redirect whitelist
 
-router.beforeEach(async(to: any, from, next: any) => {
+router.beforeEach(async (to: any, from, next: any) => {
   // start progress bar
   NProgress.start()
 
@@ -26,12 +26,15 @@ router.beforeEach(async(to: any, from, next: any) => {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
-    } else {
+    }
+    else {
       const userStore = useUserStore()
       const hasRoles = userStore.roles && userStore.roles.length > 0
+
       if (hasRoles) {
         next()
-      } else {
+      }
+      else {
         try {
           // get user info
           // note: roles must be a object array! such as: ['admin'] or ,['developer', 'editor']
@@ -49,7 +52,8 @@ router.beforeEach(async(to: any, from, next: any) => {
           await permissionStore.setRemoveRoutes(removeRoutes)
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
-        } catch (error) {
+        }
+        catch (error) {
           await userStore.resetToken()
           ElMessage.error(error as Error || 'Has Error')
           next(`/login?redirect=${to.path}`)
@@ -57,13 +61,15 @@ router.beforeEach(async(to: any, from, next: any) => {
         }
       }
     }
-  } else {
+  }
+  else {
     // has no token
 
-    if (whiteList.indexOf(to.path) !== -1) {
+    if (whiteList.includes(to.path)) {
       // in the free login whitelist, go directly
       next()
-    } else {
+    }
+    else {
       // other pages that do not have permission to access are redirected to the login page.
       next(`/login?redirect=${to.path}`)
       NProgress.done()

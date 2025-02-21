@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { ElForm } from 'element-plus'
 import type { LocationQuery } from 'vue-router'
-import defaultSettings from '@/settings'
-import { validUsername } from '@/utils/validate'
-import { useUserStore } from '@/stores/user'
 import type { UserLogin } from '~/user'
+import defaultSettings from '@/settings'
+import { useUserStore } from '@/stores/user'
+import { validUsername } from '@/utils/validate'
 
 const route = useRoute()
 const router = useRouter()
-
+//
 function validateUsername(rule: any, value: any, callback: any) {
   if (!value) {
     return callback(new Error('请输入用户名'))
@@ -95,11 +95,10 @@ async function handleLogin(formEl: FormInstance | undefined) {
         loading.value = false
         ElMessage({ message, type: 'success' })
         router.push({ path: state.redirect || '/', query: state.otherQuery })
+      }).catch((err: any) => {
+        console.log('login error', err)
+        loading.value = false
       })
-        .catch((err) => {
-          console.log('login error', err)
-          loading.value = false
-        })
     }
     else {
       console.log('error submit!!')

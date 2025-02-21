@@ -1,9 +1,10 @@
-import { createRouter, createWebHashHistory, createWebHistory, Router } from 'vue-router'
+import type { Router } from 'vue-router'
+import type { RouterTy } from '~/router'
 import Layout from '@/layout/index.vue'
-import { RouterTy } from '~/router'
-
-import nestedRouter from './modules/nested'
 import { usePermissionStore } from '@/stores/permission'
+
+import { createRouter, createWebHistory } from 'vue-router'
+import nestedRouter from './modules/nested'
 
 export const constantRoutes: RouterTy = [
   {
@@ -13,24 +14,24 @@ export const constantRoutes: RouterTy = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect')
-      }
-    ]
+        component: () => import('@/views/redirect'),
+      },
+    ],
   },
   {
     path: '/login',
     component: () => import('@/views/login/index.vue'),
-    hidden: true
+    hidden: true,
   },
   {
     path: '/404',
     component: () => import('@/views/error-page/404.vue'),
-    hidden: true
+    hidden: true,
   },
   {
     path: '/401',
     component: () => import('@/views/error-page/401.vue'),
-    hidden: true
+    hidden: true,
   },
   {
     path: '/',
@@ -41,9 +42,9 @@ export const constantRoutes: RouterTy = [
         path: 'dashboard',
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index.vue'),
-        meta: { title: 'Dashboard', icon: 'dashboard' }
-      }
-    ]
+        meta: { title: 'Dashboard', icon: 'dashboard' },
+      },
+    ],
   },
   {
     path: '/table',
@@ -54,9 +55,9 @@ export const constantRoutes: RouterTy = [
         path: '',
         component: () => import('@/views/table/index.vue'),
         name: 'TableIndex',
-        meta: { title: 'Table', icon: 'table' }
-      }
-    ]
+        meta: { title: 'Table', icon: 'table' },
+      },
+    ],
   },
   {
     path: '/world-map',
@@ -67,9 +68,9 @@ export const constantRoutes: RouterTy = [
         path: '',
         component: () => import('@/views/world-map/index.vue'),
         name: 'WorldMapIndex',
-        meta: { title: 'World Map', icon: 'international' }
-      }
-    ]
+        meta: { title: 'World Map', icon: 'international' },
+      },
+    ],
   },
   {
     path: '/vue3-tree-chart',
@@ -80,9 +81,9 @@ export const constantRoutes: RouterTy = [
         path: '',
         component: () => import('@/views/vue3-tree-chart/index.vue'),
         name: 'VueTreeChart',
-        meta: { title: 'vue3-tree-chart', icon: 'international' }
-      }
-    ]
+        meta: { title: 'vue3-tree-chart', icon: 'international' },
+      },
+    ],
   },
   {
     path: '/echarts',
@@ -91,22 +92,35 @@ export const constantRoutes: RouterTy = [
     redirect: '/echarts/graph',
     meta: {
       title: 'Echarts',
-      icon: 'nested'
+      icon: 'nested',
     },
     children: [
       {
         path: 'graph',
         component: () => import('@/views/echarts/Graph/index.vue'),
         name: 'EchartsGraph',
-        meta: { title: 'Graph' }
+        meta: { title: 'Graph' },
       },
       {
         path: 'bar',
         component: () => import('@/views/echarts/Bar.vue'),
         name: 'EchartsBar',
-        meta: { title: 'Bar' }
-      }
-    ]
+        meta: { title: 'Bar' },
+      },
+    ],
+  },
+  {
+    path: '/antv-g6',
+    component: Layout,
+    name: 'AntvG6',
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/antv-g6/index.vue'),
+        name: 'AntvG6Index',
+        meta: { title: 'Antv/G6', icon: 'international' },
+      },
+    ],
   },
   nestedRouter,
   {
@@ -116,23 +130,23 @@ export const constantRoutes: RouterTy = [
     name: 'ErrorPages',
     meta: {
       title: 'Error Pages',
-      icon: '404'
+      icon: '404',
     },
     children: [
       {
         path: '401',
         component: () => import('@/views/error-page/401.vue'),
         name: 'Page401',
-        meta: { title: '401', noCache: true }
+        meta: { title: '401', noCache: true },
       },
       {
         path: '404',
         component: () => import('@/views/error-page/404.vue'),
         name: 'Page404',
-        meta: { title: '404', noCache: true }
-      }
-    ]
-  }
+        meta: { title: '404', noCache: true },
+      },
+    ],
+  },
 ]
 
 export const asyncRoutes: RouterTy = [
@@ -145,9 +159,9 @@ export const asyncRoutes: RouterTy = [
         path: '',
         component: () => import('@/views/documentation/index.vue'),
         name: 'DocumentationIndex',
-        meta: { title: 'Documentation', icon: 'documentation' }
-      }
-    ]
+        meta: { title: 'Documentation', icon: 'documentation' },
+      },
+    ],
   },
   {
     path: '/profile',
@@ -159,19 +173,21 @@ export const asyncRoutes: RouterTy = [
         path: '',
         component: () => import('@/views/profile/index.vue'),
         name: 'ProfileIndex',
-        meta: { title: 'Profile (Admin)', icon: 'user', roles: ['admin'] }
-      }
-    ]
+        meta: { title: 'Profile (Admin)', icon: 'user', roles: ['admin'] },
+      },
+    ],
   },
 
-  { path: '/:pathMatch(.*)', redirect: '/404', hidden: true }
+  { path: '/:pathMatch(.*)', redirect: '/404', hidden: true },
 ]
 
-const makeRouter = () => createRouter({
-  history: createWebHistory(),
-  scrollBehavior: () => ({ top: 0 }),
-  routes: constantRoutes
-})
+function makeRouter() {
+  return createRouter({
+    history: createWebHistory(),
+    scrollBehavior: () => ({ top: 0 }),
+    routes: constantRoutes,
+  })
+}
 
 export function resetRouter() {
   const permissionStore = usePermissionStore()

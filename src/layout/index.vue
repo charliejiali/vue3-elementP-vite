@@ -1,20 +1,8 @@
-<template>
-  <div :class="classObj" class="app-wrapper">
-    <sidebar class="sidebar-container" />
-    <div class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
-      </div>
-      <app-main />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
+import { useAppStore } from '@/stores/app'
+import AppMain from './components/AppMain.vue'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar/index.vue'
-import AppMain from './components/AppMain.vue'
-import { useAppStore } from '@/stores/app'
 
 const appStore = useAppStore()
 const sidebarState = computed(() => {
@@ -27,17 +15,29 @@ const data = reactive({
     return {
       hideSidebar: !sidebarState.value.opened,
       openSidebar: sidebarState.value.opened,
-      withoutAnimation: sidebarState.value.withoutAnimation
+      withoutAnimation: sidebarState.value.withoutAnimation,
     }
-  })
+  }),
 })
 
 const { fixedHeader, classObj } = toRefs(data)
 </script>
 
+<template>
+  <div :class="classObj" class="app-wrapper">
+    <Sidebar class="sidebar-container" />
+    <div class="main-container">
+      <div :class="{ 'fixed-header': fixedHeader }">
+        <Navbar />
+      </div>
+      <AppMain />
+    </div>
+  </div>
+</template>
+
 <style lang="scss" scoped>
-@import 'src/styles/mixin.scss';
-@import 'src/styles/variables.scss';
+@import '@/styles/mixin.scss';
+@import '@/styles/variables.scss';
 
 .app-wrapper {
   @include clearfix;

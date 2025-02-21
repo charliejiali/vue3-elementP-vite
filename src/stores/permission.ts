@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
-import { RouteItemTy, RouterRowTy, RouterTy } from '~/router'
+import type { RouteItemTy, RouterRowTy, RouterTy } from '~/router'
 import { asyncRoutes, constantRoutes } from '@/router'
+import { defineStore } from 'pinia'
 
 interface PermissionState {
   routes: any[]
@@ -16,7 +16,8 @@ interface PermissionState {
 function hasPermission(roles: string[], route: RouteItemTy) {
   if (route.meta && route.meta.roles) {
     return roles.some(role => route.meta?.roles?.includes(role))
-  } else {
+  }
+  else {
     return true
   }
 }
@@ -29,7 +30,7 @@ function hasPermission(roles: string[], route: RouteItemTy) {
 export function filterAsyncRoutes(routes: RouterTy, roles: string[]) {
   const res: RouterTy = []
 
-  routes.forEach(route => {
+  routes.forEach((route) => {
     const tmp = { ...route }
     if (hasPermission(roles, tmp)) {
       if (tmp.children) {
@@ -42,25 +43,24 @@ export function filterAsyncRoutes(routes: RouterTy, roles: string[]) {
   return res
 }
 
-export const usePermissionStore = defineStore({
-  id: 'permission',
-  state: (): PermissionState => {
-    return {
-      routes: [],
-      addRoutes: [],
-      removeRoutes: []
-    }
-  },
+export const usePermissionStore = defineStore('permission', {
+  // id: 'permission',
+  state: (): PermissionState => ({
+    routes: [],
+    addRoutes: [],
+    removeRoutes: [],
+  }),
   getters: {
-    permission_routes: (state) => state.routes
+    permission_routes: state => state.routes,
   },
   actions: {
     generateRoutes(roles: string[]) {
-      return new Promise<RouterRowTy[]>(resolve => {
-        let accessedRoutes : RouterRowTy[]
+      return new Promise<RouterRowTy[]>((resolve) => {
+        let accessedRoutes: RouterRowTy[]
         if (roles.includes('admin')) {
           accessedRoutes = asyncRoutes || []
-        } else {
+        }
+        else {
           accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
         }
         this.setRoutes(accessedRoutes)
@@ -68,7 +68,7 @@ export const usePermissionStore = defineStore({
       })
     },
     setRemoveRoutes(removeRoutes: any[]) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         this.makeRemoveRoutes(removeRoutes)
         resolve(removeRoutes)
       })
@@ -85,6 +85,6 @@ export const usePermissionStore = defineStore({
     },
     makeRemoveRoutes(removeRoutes: any[]) {
       this.removeRoutes = removeRoutes
-    }
-  }
+    },
+  },
 })

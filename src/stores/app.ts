@@ -1,11 +1,11 @@
-import { defineStore } from 'pinia'
 import Cookies from 'js-cookie'
+import { defineStore } from 'pinia'
 
 interface AppState {
   sidebar: {
-    opened: boolean,
+    opened: boolean
     withoutAnimation: boolean
-  },
+  }
   device: string
 }
 
@@ -15,26 +15,26 @@ if (sidebarStatus) {
   opened = !!+sidebarStatus
 }
 
-export const useAppStore = defineStore({
-  id: 'app',
-  state: (): AppState => {
-    return {
-      sidebar: {
-        opened,
-        withoutAnimation: false
-      },
-      device: 'desktop'
-    }
-  },
+export const useAppStore = defineStore('app', {
+  // id: 'app',
+  state: (): AppState => ({
+    sidebar: {
+      opened,
+      withoutAnimation: false,
+    },
+    device: 'desktop',
+  }),
   actions: {
     toggleSideBar() {
       this.sidebar.opened = !this.sidebar.opened
       this.sidebar.withoutAnimation = false
+
       if (this.sidebar.opened) {
         Cookies.set('vue3ElementPViteSidebarStatus', '1')
-      } else {
+      }
+      else {
         Cookies.set('vue3ElementPViteSidebarStatus', '0')
       }
-    }
-  }
+    },
+  },
 })

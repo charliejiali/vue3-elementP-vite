@@ -1,11 +1,35 @@
+<script setup lang="ts">
+import { useAppStore } from '@/stores/app'
+import { useUserStore } from '@/stores/user'
+
+const route = useRoute()
+const router = useRouter()
+
+const appStore = useAppStore()
+const sidebar = computed(() => {
+  return appStore.sidebar
+})
+
+function toggleSideBar() {
+  appStore.toggleSideBar()
+}
+
+const userStore = useUserStore()
+function logout() {
+  userStore.logout().then((_) => {
+    router.push(`/login?redirect=${route.fullPath}`)
+  })
+}
+</script>
+
 <template>
   <div class="navbar">
-    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
+    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggle-click="toggleSideBar" />
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" class="user-avatar">
+          <img src="https://avatars.githubusercontent.com/u/5283715?v=4" class="user-avatar">
           <el-icon class="el-icon-caret-bottom">
             <IEpCaret-bottom />
           </el-icon>
@@ -24,30 +48,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useAppStore } from '@/stores/app'
-import { useUserStore } from '@/stores/user'
-
-const route = useRoute()
-const router = useRouter()
-
-const appStore = useAppStore()
-const sidebar = computed(() => {
-  return appStore.sidebar
-})
-
-const toggleSideBar = () => {
-  appStore.toggleSideBar()
-}
-
-const userStore = useUserStore()
-const logout = () => {
-  userStore.logout().then(_ => {
-    router.push(`/login?redirect=${route.fullPath}`)
-  })
-}
-</script>
 
 <style lang="scss" scoped>
 .navbar {

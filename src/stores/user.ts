@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
-import { getToken, removeToken, setToken } from '@/utils/auth'
+import type { UserInfo, UserLogin } from '~/user'
 import { getInfo, login, logout } from '@/api/user'
 import { resetRouter } from '@/router'
-import { UserLogin, UserInfo } from '~/user'
+import { getToken, removeToken, setToken } from '@/utils/auth'
+import { defineStore } from 'pinia'
 
 interface UserState {
   token: string | null
@@ -10,50 +10,50 @@ interface UserState {
   introduction: string
   roles: string[]
 }
-export const useUserStore = defineStore({
-  id: 'user',
-  state: (): UserState => {
-    return {
-      token: getToken(),
-      name: '',
-      introduction: '',
-      roles: []
-    }
-  },
+
+export const useUserStore = defineStore('user', {
+  // id: 'user',
+  state: (): UserState => ({
+    token: getToken(),
+    name: '',
+    introduction: '',
+    roles: [],
+  }),
   actions: {
     login(userInfo: UserLogin) {
       const { username, password } = userInfo
+
       return new Promise<any>((resolve, reject) => {
         login({
           username: username.trim(),
-          password: password.trim()
-        }).then(response => {
+          password: password.trim(),
+        }).then((response) => {
           const { data } = response
           this.setToken(data.token)
           setToken(data.token)
           resolve(response)
-        }).catch(error => {
+        }).catch((error) => {
           reject(error)
         })
       })
     },
     getInfo() {
       const userInfo: UserInfo = {
-        token: this.token
+        token: this.token,
       }
-      return new Promise<{roles: string[]}>((resolve, reject) => {
-        getInfo(userInfo).then(response => {
+      return new Promise<{ roles: string[] }>((resolve, reject) => {
+        getInfo(userInfo).then((response) => {
           const { data } = response
 
           if (!data) {
-            reject('Verification failed, please Login again.')
+            reject(new Error('Verification failed, please Login again.'))
           }
 
           const { roles, name, introduction } = data
 
           // roles must be a non-empty array
           if (!roles || roles.length <= 0) {
-            reject('getInfo: roles must be a non-null array!')
+            reject(new Error('getInfo: roles must be a non-null array!'))
           }
 
           this.setRoles(roles)
@@ -61,30 +61,30 @@ export const useUserStore = defineStore({
           this.setIntroduction(introduction)
 
           resolve(data)
-        }).catch(err => {
+        }).catch((err) => {
           reject(err)
         })
       })
     },
     logout() {
       const userInfo: UserInfo = {
-        token: this.token
+        token: this.token,
       }
       return new Promise((resolve, reject) => {
-        logout(userInfo).then(_ => {
+        logout(userInfo).then((_) => {
           this.setToken('')
           this.setRoles([])
           removeToken()
           resetRouter()
           resolve(null)
-        }).catch(error => {
+        }).catch((error) => {
           reject(error)
         })
       })
     },
     // remove token
     resetToken() {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         this.setToken('')
         this.setRoles([])
         removeToken()
@@ -102,6 +102,6 @@ export const useUserStore = defineStore({
     },
     setIntroduction(introduction: string) {
       this.introduction = introduction
-    }
-  }
+    },
+  },
 })

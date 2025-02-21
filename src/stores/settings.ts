@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
 import defaultSettings from '@/settings'
+import { defineStore } from 'pinia'
 
 const { fixedHeader, sidebarLogo } = defaultSettings
 
@@ -8,13 +8,11 @@ interface SettingsState {
   sidebarLogo: boolean
 }
 
-export const useSettingsStore = defineStore({
-  id: 'settings',
-  state: (): SettingsState => {
-    return {
-      fixedHeader,
-      sidebarLogo
-    }
-  },
-  getters: {}
+export const useSettingsStore = defineStore('settings', {
+  // id: 'settings',
+  state: (): SettingsState => ({
+    fixedHeader,
+    sidebarLogo,
+  }),
+  getters: {},
 })
