@@ -32,6 +32,7 @@
     "src/**/*.vue",
     "auto-imports.d.ts",
     "vite.config.ts",
-    "src/settings.ts"
+    "src/settings.ts",
+    "public/config.ts"
   ]
 }
