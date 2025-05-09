@@ -1,16 +1,18 @@
+@use './variables.scss' as vars;
+
 #app {
 
   .main-container {
     min-height: 100%;
     transition: margin-left .28s;
-    margin-left: $sideBarWidth;
+    margin-left: vars.$sideBarWidth;
     position: relative;
   }
 
   .sidebar-container {
     transition: width 0.28s;
-    width: $sideBarWidth !important;
-    background-color: $menuBg;
+    width: vars.$sideBarWidth !important;
+    background-color: vars.$menuBg;
     height: 100%;
     position: fixed;
     font-size: 0;
@@ -72,21 +74,21 @@
     .submenu-title-noDropdown,
     .el-sub-menu__title {
       &:hover {
-        background-color: $menuHover !important;
+        background-color: vars.$menuHover !important;
       }
     }
 
     .is-active>.el-sub-menu__title {
-      color: $subMenuActiveText !important;
+      color: vars.$subMenuActiveText !important;
     }
 
     & .nest-menu .el-sub-menu>.el-sub-menu__title,
     & .el-sub-menu .el-menu-item {
-      min-width: $sideBarWidth !important;
-      background-color: $subMenuBg !important;
+      min-width: vars.$sideBarWidth !important;
+      background-color: vars.$subMenuBg !important;
 
       &:hover {
-        background-color: $subMenuHover !important;
+        background-color: vars.$subMenuHover !important;
       }
     }
   }
@@ -153,7 +155,7 @@
   }
 
   .el-menu--collapse .el-menu .el-sub-menu {
-    min-width: $sideBarWidth !important;
+    min-width: vars.$sideBarWidth !important;
   }
 
   // mobile responsive
@@ -164,14 +166,14 @@
 
     .sidebar-container {
       transition: transform .28s;
-      width: $sideBarWidth !important;
+      width: vars.$sideBarWidth !important;
     }
 
     &.hideSidebar {
       .sidebar-container {
         pointer-events: none;
         transition-duration: 0.3s;
-        transform: translate3d(-$sideBarWidth, 0, 0);
+        transform: translate3d(-(vars.$sideBarWidth), 0, 0);
       }
     }
   }
@@ -201,7 +203,7 @@
   .el-menu-item {
     &:hover {
       // you can use $subMenuHover
-      background-color: $menuHover !important;
+      background-color: vars.$menuHover !important;
     }
   }
 

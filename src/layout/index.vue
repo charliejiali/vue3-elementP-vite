@@ -36,11 +36,11 @@ const { fixedHeader, classObj } = toRefs(data)
 </template>
 
 <style lang="scss" scoped>
-@import '@/styles/mixin.scss';
-@import '@/styles/variables.scss';
+@use '@/styles/mixin.scss' as mixins;
+@use '@/styles/variables.scss' as vars;
 
 .app-wrapper {
-  @include clearfix;
+  @include mixins.clearfix;
   position: relative;
   height: 100%;
   width: 100%;
@@ -66,7 +66,7 @@ const { fixedHeader, classObj } = toRefs(data)
   top: 0;
   right: 0;
   z-index: 9;
-  width: calc(100% - #{$sideBarWidth});
+  width: calc(100% - #{vars.$sideBarWidth});
   transition: width 0.28s;
 }
 

@@ -1,15 +1,15 @@
+<script lang="ts" setup>
+
+</script>
+
 <template>
   <div class="echarts-bar-container">
     <span>Bar</span>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Bar'
+<style lang="scss" scoped>
+.echarts-bar-container {
+
 }
-</script>
-
-<style scoped>
-
 </style>
